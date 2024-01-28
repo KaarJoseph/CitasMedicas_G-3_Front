@@ -1,0 +1,28 @@
+<div>
+    <h2>Facturaciones</h2>
+    <button (click)="iniciarCreacionFactura()">Nueva Factura</button>
+    <ul>
+        <li *ngFor="let factura of facturaciones" (click)="seleccionarFactura(factura)">
+            {{ factura.fact_nombre_paciente }} - {{ factura.fact_numero_identificacion }}
+        </li>
+    </ul>
+
+    <div *ngIf="facturaSeleccionada">
+        <h3>{{ editMode ? 'Editar' : 'Crear' }} Factura</h3>
+        <form>
+            <input [(ngModel)]="facturaSeleccionada.fact_nombre_paciente" placeholder="Nombre del Paciente" name="nombrePaciente">
+            <input [(ngModel)]="facturaSeleccionada.fact_numero_identificacion" placeholder="Número de Identificación" name="numeroIdentificacion">
+            <input [(ngModel)]="facturaSeleccionada.fact_numero_poliza_seguro" placeholder="Número de Póliza de Seguro" name="numeroPolizaSeguro">
+            <textarea [(ngModel)]="facturaSeleccionada.fact_detalles_facturacion" placeholder="Detalles de Facturación" name="detallesFacturacion"></textarea>
+            <input [(ngModel)]="facturaSeleccionada.fact_estado_pago" placeholder="Estado de Pago" name="estadoPago">
+            <input [(ngModel)]="facturaSeleccionada.fact_metodo_pago" placeholder="Método de Pago" name="metodoPago">
+            <!-- Aquí puedes agregar un selector para el paciente si es necesario -->
+            <select [(ngModel)]="facturaSeleccionada.paciente" name="paciente">
+                <option *ngFor="let paciente of pacientes" [value]="paciente.id">{{ paciente.pac_nombre_completo }}</option>
+            </select> 
+            <button type="button" (click)="guardarFactura()">Guardar</button>
+            <button type="button" *ngIf="editMode && facturaSeleccionada?.id" (click)="eliminarFactura(facturaSeleccionada.id)">Eliminar</button>
+
+        </form>
+    </div>
+</div>

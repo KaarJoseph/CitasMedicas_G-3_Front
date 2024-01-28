@@ -1,0 +1,56 @@
+<div class="paciente-component">
+    <!-- Listado de Pacientes -->
+    <div class="lista-pacientes">
+        <h2>Listado de Pacientes</h2>
+        <ul>
+            <li *ngFor="let paciente of pacientes" (click)="seleccionarPaciente(paciente)">
+                {{ paciente.pac_nombre_completo }}
+            </li>
+        </ul>
+    </div>
+
+    <!-- Formulario para Crear un Nuevo Paciente -->
+    <div class="formulario-paciente" *ngIf="!pacienteSeleccionado">
+        <h2>Nuevo Paciente</h2>
+        <form>
+            <!-- Campos para un nuevo paciente -->
+            <input [(ngModel)]="nuevoPaciente.pac_nombre_completo" placeholder="Nombre Completo" name="nombreNuevo"/>
+            <input [(ngModel)]="nuevoPaciente.pac_fecha_nacimiento" placeholder="Fecha de Nacimiento" type="date" name="fechaNacimientoNuevo"/>
+            <input [(ngModel)]="nuevoPaciente.pac_genero" placeholder="Género" name="generoNuevo"/>
+            <input [(ngModel)]="nuevoPaciente.pac_direccion" placeholder="Dirección" name="direccionNuevo"/>
+            <input [(ngModel)]="nuevoPaciente.pac_numero_telefono" placeholder="Número de Teléfono" name="telefonoNuevo"/>
+            <input [(ngModel)]="nuevoPaciente.pac_correo_electronico" placeholder="Correo Electrónico" name="emailNuevo"/>
+            <textarea [(ngModel)]="nuevoPaciente.pac_antecedentes_medicos" placeholder="Antecedentes Médicos" name="antecedentesMedicosNuevo"></textarea>
+            <textarea [(ngModel)]="nuevoPaciente.pac_enfermedades" placeholder="Enfermedades" name="enfermedadesNuevo"></textarea>
+            <textarea [(ngModel)]="nuevoPaciente.pac_alergias" placeholder="Alergias" name="alergiasNuevo"></textarea>
+            <textarea [(ngModel)]="nuevoPaciente.pac_medicamentos_actuales" placeholder="Medicamentos Actuales" name="medicamentosActualesNuevo"></textarea>
+            <select [(ngModel)]="nuevoPaciente.medico_personal" name="medicoPersonal">
+                <option *ngFor="let medico of medicos" [value]="medico.id">{{ medico.med_per_nombre_completo }}</option>
+            </select>
+            <button (click)="crearPaciente()">Crear Paciente</button>
+        </form>
+    </div>
+
+    <!-- Formulario de Edición de Pacientes -->
+    <div class="formulario-paciente" *ngIf="pacienteSeleccionado">
+        <h2>Editar Paciente</h2>
+        <form>
+            <!-- Campos para editar un paciente existente -->
+            <input [(ngModel)]="pacienteSeleccionado.pac_nombre_completo" placeholder="Nombre Completo" name="nombre"/>
+            <input [(ngModel)]="pacienteSeleccionado.pac_fecha_nacimiento" placeholder="Fecha de Nacimiento" type="date" name="fechaNacimiento"/>
+            <input [(ngModel)]="pacienteSeleccionado.pac_genero" placeholder="Género" name="genero"/>
+            <input [(ngModel)]="pacienteSeleccionado.pac_direccion" placeholder="Dirección" name="direccion"/>
+            <input [(ngModel)]="pacienteSeleccionado.pac_numero_telefono" placeholder="Número de Teléfono" name="telefono"/>
+            <input [(ngModel)]="pacienteSeleccionado.pac_correo_electronico" placeholder="Correo Electrónico" name="email"/>
+            <textarea [(ngModel)]="pacienteSeleccionado.pac_antecedentes_medicos" placeholder="Antecedentes Médicos" name="antecedentesMedicos"></textarea>
+            <textarea [(ngModel)]="pacienteSeleccionado.pac_enfermedades" placeholder="Enfermedades" name="enfermedades"></textarea>
+            <textarea [(ngModel)]="pacienteSeleccionado.pac_alergias" placeholder="Alergias" name="alergias"></textarea>
+            <textarea [(ngModel)]="pacienteSeleccionado.pac_medicamentos_actuales" placeholder="Medicamentos Actuales" name="medicamentosActuales"></textarea>
+            <select [(ngModel)]="nuevoPaciente.medico_personal" name="medicoPersonal">
+                <option *ngFor="let medico of medicos" [value]="medico.id">{{ medico.med_per_nombre_completo }}</option>
+            </select>                    
+            <button (click)="actualizarPaciente()">Guardar Cambios</button>
+            <button (click)="eliminarPaciente(pacienteSeleccionado)">Eliminar</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<div>
+    <h2>Consultas Médicas</h2>
+    <button (click)="iniciarCreacionConsulta()">Nueva Consulta</button>
+    <ul>
+      <li *ngFor="let consulta of consultasMedicas" (click)="seleccionarConsulta(consulta)">
+        {{ consulta.con_med_diagnostico }} - {{ consulta.con_med_paciente }}
+      </li>
+    </ul>
+  
+    <div *ngIf="consultaSeleccionada">
+      <h3>{{ editMode ? 'Editar' : 'Crear' }} Consulta</h3>
+      <form>
+        <input [(ngModel)]="consultaSeleccionada.con_med_diagnostico" placeholder="Diagnóstico" name="diagnostico">
+        <input [(ngModel)]="consultaSeleccionada.con_med_recomendaciones" placeholder="Recomendaciones" name="recomendaciones">
+        <!-- Agrega más campos según sea necesario -->
+        <button type="button" (click)="guardarConsulta()">Guardar</button>
+        <button type="button" *ngIf="consultaSeleccionada.id" (click)="eliminarConsulta(consultaSeleccionada.id)">Eliminar</button>
+        <select [(ngModel)]="consultaSeleccionada.con_med_medico_personal" name="medicoPersonal">
+          <option *ngFor="let medico of medicos" [value]="medico.id">{{ medico.med_per_nombre_completo }}</option>
+        </select>
+  
+        <select [(ngModel)]="consultaSeleccionada.con_med_paciente" name="paciente">
+          <option *ngFor="let paciente of pacientes" [value]="paciente.id">{{ paciente.pac_nombre_completo }}</option>
+        </select>
+      </form>
+    </div>
+  </div>
+  

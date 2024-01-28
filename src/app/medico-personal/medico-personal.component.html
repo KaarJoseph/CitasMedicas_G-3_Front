@@ -1,0 +1,31 @@
+<div>
+    <!-- Formulario para crear o editar un médico personal -->
+    <form>
+        <label for="nombre">Nombre Completo:</label>
+        <input type="text" id="nombre" [(ngModel)]="nuevoMedicoPersonal.med_per_nombre_completo" name="med_per_nombre_completo" required>
+
+        <label for="credenciales">Credenciales:</label>
+        <textarea id="credenciales" [(ngModel)]="nuevoMedicoPersonal.med_per_credenciales" name="med_per_credenciales" required></textarea>
+
+        <label for="especialidades">Especialidades:</label>
+        <input type="text" id="especialidades" [(ngModel)]="nuevoMedicoPersonal.med_per_especialidades" name="med_per_especialidades" required>
+
+        <label for="horarios">Horarios de Consulta:</label>
+        <textarea id="horarios" [(ngModel)]="nuevoMedicoPersonal.med_per_horarios_consulta" name="med_per_horarios_consulta" required></textarea>
+
+        <label for="informacion">Información de Contacto:</label>
+        <textarea id="informacion" [(ngModel)]="nuevoMedicoPersonal.med_per_informacion_contacto" name="med_per_informacion_contacto" required></textarea>
+
+        <button (click)="crearMedicoPersonal()">{{medicoSeleccionado ? 'Guardar' : 'Crear'}}</button>
+        <button (click)="limpiarFormulario()">Limpiar</button>
+    </form>
+
+    <!-- Lista de médicos personales existentes -->
+    <ul>
+        <li *ngFor="let medico of medicos">
+            {{ medico.med_per_nombre_completo }}
+            <button (click)="seleccionarMedicoPersonal(medico)">Editar</button>
+            <button (click)="eliminarMedicoPersonal()">Eliminar</button>
+        </li>
+    </ul>
+</div>

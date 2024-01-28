@@ -1,0 +1,39 @@
+<!-- prescripcion-orden-medica.component.html -->
+
+<div>
+    <h2>Prescripciones de Órdenes Médicas</h2>
+    <button (click)="iniciarCreacionPrescripcionOrdenMedica()">Nueva Prescripción</button>
+    <ul>
+      <li *ngFor="let prescripcion of prescripcionesOrdenesMedicas" (click)="seleccionarPrescripcionOrdenMedica(prescripcion)">
+        {{ prescripcion.pres_ord_nombre_paciente }} - {{ prescripcion.pres_ord_fecha_emision | date }}
+      </li>
+    </ul>
+  
+    <div *ngIf="prescripcionSeleccionada">
+      <h3>{{ editMode ? 'Editar' : 'Crear' }} Prescripción</h3>
+      <form>
+        <label for="nombrePaciente">Nombre del Paciente:</label>
+        <input id="nombrePaciente" [(ngModel)]="prescripcionSeleccionada.pres_ord_nombre_paciente" placeholder="Nombre del Paciente" name="nombrePaciente">
+        
+        <label for="fechaEmision">Fecha de Emisión:</label>
+        <input id="fechaEmision" type="date" [(ngModel)]="prescripcionSeleccionada.pres_ord_fecha_emision" name="fechaEmision">
+        
+        <label for="detallesPrescripcion">Detalles de la Prescripción:</label>
+        <textarea id="detallesPrescripcion" [(ngModel)]="prescripcionSeleccionada.pres_ord_detalles_prescripcion" placeholder="Detalles de la Prescripción" name="detallesPrescripcion"></textarea>
+        
+        <label for="estadoCumplimiento">Estado de Cumplimiento:</label>
+        <input id="estadoCumplimiento" [(ngModel)]="prescripcionSeleccionada.pres_ord_estado_cumplimiento" placeholder="Estado de Cumplimiento" name="estadoCumplimiento">
+        
+        <label for="consultaMedica">Consulta Médica:</label>
+        <select id="consultaMedica" [(ngModel)]="prescripcionSeleccionada.consulta_medica" name="consultaMedica">
+          <option *ngFor="let consulta of consultasMedicas" [value]="consulta.id">
+            {{ consulta.id }} - {{ consulta.con_med_medico_personal }} <!-- Asume que ConsultaMedica tiene estas propiedades -->
+          </option>
+        </select>
+        
+        <button type="button" (click)="guardarPrescripcionOrdenMedica()">Guardar</button>
+        <button type="button" *ngIf="prescripcionSeleccionada.id" (click)="eliminarPrescripcionOrdenMedica(prescripcionSeleccionada.id)">Eliminar</button>
+      </form>
+    </div>
+  </div>
+  

@@ -1,0 +1,25 @@
+<!-- certificado.component.html -->
+
+<div>
+    <h2>Certificados</h2>
+    <button (click)="iniciarCreacionCertificado()">Nuevo Certificado</button>
+    <ul>
+      <li *ngFor="let certificado of certificados" (click)="seleccionarCertificado(certificado)">
+        {{ certificado.cert_titulo }} - {{ certificado.cert_emisor }}
+      </li>
+    </ul>
+  
+    <div *ngIf="certificadoSeleccionado">
+      <h3>{{ editMode ? 'Editar' : 'Crear' }} Certificado</h3>
+      <form>
+        <input [(ngModel)]="certificadoSeleccionado.cert_titulo" placeholder="Título" name="titulo">
+        <input [(ngModel)]="certificadoSeleccionado.cert_emisor" placeholder="Emisor" name="emisor">
+        <input [(ngModel)]="certificadoSeleccionado.cert_receptor" placeholder="Receptor" name="receptor">
+        <input [(ngModel)]="certificadoSeleccionado.cert_fecha_emision" placeholder="Fecha de Emisión" name="fechaEmision">
+        <textarea [(ngModel)]="certificadoSeleccionado.cert_descripcion" placeholder="Descripción" name="descripcion"></textarea>
+        <button type="button" (click)="guardarCertificado()">Guardar</button>
+        <button type="button" *ngIf="certificadoSeleccionado.id" (click)="eliminarCertificado(certificadoSeleccionado.id)">Eliminar</button>
+      </form>
+    </div>
+  </div>
+  

@@ -1,0 +1,33 @@
+<!-- plan-cuentas.component.html -->
+<div>
+  <h2>Plan de Cuentas</h2>
+  <button (click)="iniciarCreacionPlanCuentas()">Nuevo Plan de Cuentas</button>
+
+  <ul>
+      <li *ngFor="let plan of planCuentasList" (click)="seleccionarPlanCuentas(plan)">
+          {{ plan.plan_cue_descripcion }} - {{ plan.plan_cue_monto }}
+      </li>
+  </ul>
+
+  <div *ngIf="planCuentasSeleccionado">
+      <h3>{{ editMode ? 'Editar' : 'Crear' }} Plan de Cuentas</h3>
+      <form>
+          <input [(ngModel)]="planCuentasSeleccionado.plan_cue_fecha_transaccion" placeholder="Fecha de Transacción" name="fechaTransaccion">
+          <input [(ngModel)]="planCuentasSeleccionado.plan_cue_tipo_transaccion" placeholder="Tipo de Transacción" name="tipoTransaccion">
+          <input [(ngModel)]="planCuentasSeleccionado.plan_cue_monto" placeholder="Monto" name="monto" type="number">
+          <textarea [(ngModel)]="planCuentasSeleccionado.plan_cue_descripcion" placeholder="Descripción" name="descripcion"></textarea>
+          <input [(ngModel)]="planCuentasSeleccionado.plan_cue_numero_referencia" placeholder="Número de Referencia" name="numeroReferencia">
+          <input [(ngModel)]="planCuentasSeleccionado.plan_cue_cuenta_destino" placeholder="Cuenta Destino" name="cuentaDestino">
+          <input [(ngModel)]="planCuentasSeleccionado.plan_cue_metodo_pago" placeholder="Método de Pago" name="metodoPago">
+          <input [(ngModel)]="planCuentasSeleccionado.plan_cue_categoria_gasto_ingreso" placeholder="Categoría de Gasto/Ingreso" name="categoriaGastoIngreso">
+          <textarea [(ngModel)]="planCuentasSeleccionado.plan_cue_datos_proveedor_cliente" placeholder="Datos del Proveedor/Cliente" name="datosProveedorCliente"></textarea>
+          <select [(ngModel)]="planCuentasSeleccionado.consulta_medica" name="consultaMedica">
+              <option *ngFor="let consulta of consultasMedicas" [value]="consulta.id">
+                  {{ consulta.con_med_diagnostico }} - {{ consulta.con_med_paciente }}
+              </option>
+          </select>
+          <button type="button" (click)="guardarPlanCuentas()">Guardar</button>
+          <button type="button" *ngIf="planCuentasSeleccionado.id" (click)="eliminarPlanCuentas(planCuentasSeleccionado.id)">Eliminar</button>
+      </form>
+  </div>
+</div>

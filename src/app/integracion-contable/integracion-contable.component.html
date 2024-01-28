@@ -1,0 +1,26 @@
+<!-- integracion-contable.component.html -->
+
+<div>
+    <h2>Integraciones Contables</h2>
+    <button (click)="iniciarCreacionIntegracionContable()">Nueva Integración Contable</button>
+    <ul>
+      <li *ngFor="let integracion of integracionesContables" (click)="seleccionarIntegracionContable(integracion)">
+        {{ integracion.integ_cont_datos_financieros }}
+      </li>
+    </ul>
+  
+    <div *ngIf="integracionSeleccionada">
+      <h3>{{ editMode ? 'Editar' : 'Crear' }} Integración Contable</h3>
+      <form>
+        <textarea [(ngModel)]="integracionSeleccionada.integ_cont_datos_financieros" placeholder="Datos Financieros" name="datosFinancieros"></textarea>
+        <select [(ngModel)]="integracionSeleccionada.plan_cuentas" name="planCuentas">
+          <option *ngFor="let cuenta of planCuentas" [value]="cuenta.id">
+            {{ cuenta.plan_cue_descripcion }} <!-- Asume que PlanCuentas tiene una propiedad 'nombre' -->
+          </option>
+        </select>
+        <button type="button" (click)="guardarIntegracionContable()">Guardar</button>
+        <button type="button" *ngIf="integracionSeleccionada.id" (click)="eliminarIntegracionContable(integracionSeleccionada.id)">Eliminar</button>
+      </form>
+    </div>
+  </div>
+  
