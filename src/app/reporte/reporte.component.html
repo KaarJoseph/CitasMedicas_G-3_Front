@@ -8,7 +8,9 @@
         {{ reporte.rep_tipo_reporte }} - {{ reporte.usuario }}
       </li>
     </ul>
-  
+    
+    <br>
+
     <div *ngIf="reporteSeleccionado">
       <h3>{{ editMode ? 'Editar' : 'Crear' }} Reporte</h3>
       <form>
